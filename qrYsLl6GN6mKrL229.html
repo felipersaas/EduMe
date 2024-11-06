@@ -1,0 +1,910 @@
+<html><head><base href="." target="_blank" />
+<meta charset="UTF-8">
+<title>EduMe - Sua Plataforma de Estudos</title>
+<style>
+:root {
+  --primary: #ffffff;
+  --secondary: #20B2AA;
+  --accent: #48D1CC;
+  --text: #2F4F4F;
+  --light: #E0FFFF;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: var(--light);
+  color: var(--text);
+}
+
+.navbar {
+  background-color: var(--primary);
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--secondary);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-grow: 1;
+  margin: 0 2rem;
+}
+
+.search-bar {
+  flex-grow: 1;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 20px;
+  font-size: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.mode-toggle {
+  background: var(--secondary);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: 500;
+}
+
+.mode-toggle:hover {
+  background: var(--accent);
+}
+
+.mode-toggle.active {
+  background: var(--text);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 4rem 0;
+}
+
+.hero-content {
+  flex: 1;
+  background: white;
+  padding: 3rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: var(--secondary);
+}
+
+.hero p {
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.schools-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-left: 2rem;
+  width: 250px;
+}
+
+.school-btn {
+  background: var(--secondary);
+  border: none;
+  padding: 1rem;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  width: 100%;
+}
+
+.school-btn:hover {
+  background: var(--accent);
+  transform: translateY(-2px);
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.feature-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  color: var(--secondary);
+  margin-bottom: 1rem;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.floating-books {
+  animation: float 3s ease-in-out infinite;
+}
+
+.profile-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--secondary);
+  border: 2px solid white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.profile-btn:hover {
+  transform: scale(1.05);
+}
+
+.profile-icon {
+  color: white;
+  font-size: 1.2rem;
+}
+
+.ai-search-container {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  align-items: center;
+}
+
+.ai-search {
+  flex-grow: 1;
+  padding: 0.8rem 1rem;
+  border: 2px solid var(--secondary);
+  border-radius: 20px;
+  font-size: 1rem;
+  transition: box-shadow 0.3s ease;
+}
+
+.ai-search:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+.ai-toggle {
+  background: var(--secondary);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.ai-toggle:hover {
+  background: var(--accent);
+  transform: translateY(-2px);
+}
+
+.ai-toggle.active {
+  background: var(--text);
+}
+
+.olympiads {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.olympiad-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.olympiad-card:hover {
+  transform: translateY(-5px);
+}
+
+.olympiad-title {
+  font-size: 1.5rem;
+  color: var(--secondary);
+  margin-bottom: 0.5rem;
+}
+
+.olympiad-subtitle {
+  font-size: 0.9rem;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: var(--light);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background-color: var(--secondary);
+  width: 60%;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: var(--secondary);
+  font-weight: 500;
+}
+
+.plan-type {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text);
+  font-style: italic;
+}
+
+.search-circle {
+  width: 80px;
+  height: 80px;
+  background-color: var(--secondary);
+  border-radius: 50%;
+  margin: 0 auto 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.search-circle:hover {
+  transform: scale(1.1);
+}
+
+.search-circle i {
+  font-size: 2rem;
+  color: white;
+}
+
+.chart-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  margin: 2rem 0;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.chart-title {
+  text-align: center;
+  color: var(--secondary);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.time-toggles {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.time-toggle {
+  background: var(--light);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 15px;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.time-toggle:hover {
+  background: var(--accent);
+  color: white;
+}
+
+.time-toggle.active {
+  background: var(--secondary);
+  color: white;
+}
+
+.study-path {
+  position: relative;
+  margin-top: 4rem;
+  padding: 2rem;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.path-title {
+  text-align: center;
+  color: var(--secondary);
+  font-size: 2rem;
+  margin-bottom: 3rem;
+}
+
+.path-container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 0;
+}
+
+.path-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--secondary);
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.path-line path {
+  stroke: var(--secondary);
+  stroke-width: 4;
+  fill: none;
+}
+
+.milestone {
+  position: relative;
+  z-index: 2;
+  width: 120px;
+  background: white;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 2px solid var(--secondary);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.milestone:hover {
+  transform: translateY(-10px);
+}
+
+.milestone-point {
+  width: 20px;
+  height: 20px;
+  background: var(--secondary);
+  border-radius: 50%;
+  margin: 0 auto 0.5rem;
+}
+
+.milestone-text {
+  font-size: 0.9rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.milestone-icon {
+  color: var(--secondary);
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+.fa-spinner {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.chat-container {
+  margin-top: 4rem; 
+  margin-bottom: 2rem;
+  background: transparent; 
+  padding: 0; 
+  box-shadow: none; 
+}
+
+.chat-messages {
+  height: 300px;
+  overflow-y: auto;
+  padding: 1rem;
+  border: 1px solid var(--light);
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.chat-message {
+  margin-bottom: 1rem;
+  padding: 0.8rem;
+  border-radius: 10px;
+  max-width: 80%;
+}
+
+.user-message {
+  background: var(--light);
+  margin-left: auto;
+}
+
+.ai-message {
+  background: var(--secondary);
+  color: white;
+}
+
+.chat-input-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.chat-input {
+  flex-grow: 1;
+  padding: 0.8rem;
+  border: 1px solid var(--light);
+  border-radius: 20px;
+  font-size: 1rem;
+}
+
+.chat-send {
+  background: var(--secondary);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.chat-send:hover {
+  background: var(--accent);
+  transform: translateY(-2px);
+}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="https://edume.example.com" class="logo">
+    <svg class="floating-books" width="40" height="40" viewBox="0 0 40 40">
+      <path d="M5 20L20 15L35 20L20 25L5 20Z" fill="var(--secondary)"/>
+      <path d="M15 19C15 19 17 17 20 17C23 17 25 19 25 19" stroke="var(--secondary)" stroke-width="2" fill="none"/>
+      <rect x="15" y="12" width="10" height="2" fill="var(--secondary)"/>
+      <circle cx="20" cy="11" r="1.5" fill="white"/>
+    </svg>
+    EduMe
+  </a>
+  <div class="search-container">
+    <input type="search" class="search-bar" placeholder="Pesquisar...">
+    <button class="mode-toggle" id="modeToggle">Banco de Dados</button>
+    <button class="profile-btn">
+      <i class="fas fa-user profile-icon"></i>
+    </button>
+  </div>
+</nav>
+
+<div class="container">
+  <section class="hero">
+    <div class="hero-content">
+      <h1>EduMe</h1>
+      <p>Imagine uma plataforma que não só otimiza seus estudos, mas também te guia pelo caminho exato de conquistas acadêmicas que você precisa para alcançar as melhores bolsas de estudo.</p>
+      <div class="ai-search-container">
+        <input type="search" class="ai-search" placeholder="Pergunte algo para a IA...">
+        <button class="ai-toggle" id="aiToggle">GPT-4</button>
+      </div>
+    </div>
+    <div class="schools-container">
+      <button class="school-btn">Colégio Ideal</button>
+      <button class="school-btn">Colégio COLAB</button>
+      <button class="school-btn">Colégio Três</button>
+    </div>
+  </section>
+
+  <div class="features">
+    <div class="feature-card">
+      <i class="fas fa-book feature-icon"></i>
+      <h3>Material Didático</h3>
+      <p>Conteúdo organizado e de qualidade para seu aprendizado</p>
+    </div>
+    
+    <div class="feature-card">
+      <i class="fas fa-video feature-icon"></i>
+      <h3>Videoaulas</h3>
+      <p>Aulas gravadas com os melhores professores</p>
+    </div>
+    
+    <div class="feature-card">
+      <i class="fas fa-tasks feature-icon"></i>
+      <h3>Exercícios</h3>
+      <p>Pratique com exercícios e testes personalizados</p>
+    </div>
+
+    <div class="feature-card">
+      <i class="fas fa-brain feature-icon"></i>
+      <h3>Estudos com IA</h3>
+      <p>Trilha de aprendizado personalizada com inteligência artificial</p>
+    </div>
+  </div>
+
+  <div class="chart-container">
+    <h3 class="chart-title">Progresso de Estudos</h3>
+    <div class="time-toggles">
+      <button class="time-toggle active" data-period="day">Dia</button>
+      <button class="time-toggle" data-period="week">Semana</button>
+      <button class="time-toggle" data-period="month">Mês</button>
+    </div>
+    <canvas id="progressChart"></canvas>
+  </div>
+
+  <div class="olympiads">
+    <div class="olympiad-card">
+      <h3 class="olympiad-title">OBMEP</h3>
+      <p class="olympiad-subtitle">Olimpíada Brasileira de Matemática das Escolas Públicas</p>
+      <div class="progress-bar">
+        <div class="progress"></div>
+      </div>
+      <p class="progress-text">60%</p>
+      <p class="plan-type">Plano Anual</p>
+    </div>
+    
+    <div class="olympiad-card">
+      <h3 class="olympiad-title">OBA</h3>
+      <p class="olympiad-subtitle">Olimpíada Brasileira de Astronomia</p>
+      <div class="progress-bar">
+        <div class="progress" style="width: 45%"></div>
+      </div>
+      <p class="progress-text">45%</p>
+      <p class="plan-type">Plano Semestral</p>
+    </div>
+    
+    <div class="olympiad-card">
+      <h3 class="olympiad-title">OBF</h3>
+      <p class="olympiad-subtitle">Olimpíada Brasileira de Física</p>
+      <div class="progress-bar">
+        <div class="progress" style="width: 30%"></div>
+      </div>
+      <p class="progress-text">30%</p>
+      <p class="plan-type">Plano Mensal</p>
+    </div>
+    
+    <div class="olympiad-card">
+      <div class="search-circle">
+        <i class="fas fa-search"></i>
+      </div>
+      <h3 class="olympiad-title">Descobrir</h3>
+      <p class="olympiad-subtitle">Pesquisar mais olimpíadas no banco de dados</p>
+    </div>
+  </div>
+
+  <div class="study-path">
+    <h2 class="path-title">Minha Meta</h2>
+    <div class="path-container">
+      <svg class="path-line" width="100%" height="100%" preserveAspectRatio="none">
+        <path d="M0,50 C200,-50 400,150 600,50 C800,-50 1000,150 1200,50" />
+      </svg>
+      
+      <div class="milestone">
+        <div class="milestone-point"></div>
+        <div class="milestone-text">Início</div>
+        <i class="fas fa-map-pin milestone-icon"></i>
+      </div>
+      
+      <div class="milestone">
+        <div class="milestone-point"></div>
+        <div class="milestone-text">Medalha 1</div>
+        <i class="fas fa-check milestone-check"></i>
+      </div>
+      
+      <div class="milestone">
+        <div class="milestone-point"></div>
+        <div class="milestone-text">Medalha 2</div>
+        <i class="fas fa-check milestone-check"></i>
+      </div>
+      
+      <div class="milestone">
+        <div class="milestone-point"></div>
+        <div class="milestone-text">Ação 1</div>
+        <i class="fas fa-check milestone-check"></i>
+      </div>
+      
+      <div class="milestone">
+        <div class="milestone-point"></div>
+        <div class="milestone-text">Ação 2</div>
+        <i class="fas fa-spinner fa-spin milestone-icon"></i>
+      </div>
+      
+      <div class="milestone">
+        <div class="milestone-point"></div>
+        <div class="milestone-text">Ingressar em UnB</div>
+      </div>
+    </div>
+    
+    <div class="chat-container">
+      <h3 class="chart-title">EduMe.AI</h3>
+      <div class="chat-messages" id="chatMessages">
+        <div class="chat-message ai-message">
+          Olá! Como posso ajudar com sua trajetória de estudos?
+        </div>
+      </div>
+      <div class="chat-input-container">
+        <input type="text" class="chat-input" id="chatInput" placeholder="Digite sua mensagem...">
+        <button class="chat-send" id="sendMessage">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const cards = document.querySelectorAll('.feature-card');
+    const olympiadCards = document.querySelectorAll('.olympiad-card');
+    const modeToggle = document.getElementById('modeToggle');
+    const searchBar = document.querySelector('.search-bar');
+    const aiToggle = document.getElementById('aiToggle');
+    const timeToggles = document.querySelectorAll('.time-toggle');
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+    const sendMessage = document.getElementById('sendMessage');
+    let isStudyPlanMode = false;
+    let isGPT4Mode = true;
+    
+    const timeData = {
+        day: {
+            labels: ['0h', '2h', '4h', '6h', '8h', '10h', '12h'],
+            obmep: [0, 20, 35, 45, 60, 75, 85],
+            oba: [0, 15, 25, 35, 45, 55, 65],
+            obf: [0, 10, 20, 30, 40, 45, 50]
+        },
+        week: {
+            labels: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+            obmep: [30, 45, 55, 65, 70, 80, 90],
+            oba: [20, 30, 40, 50, 55, 60, 70],
+            obf: [15, 25, 35, 40, 45, 50, 60]
+        },
+        month: {
+            labels: ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4'],
+            obmep: [40, 60, 75, 95],
+            oba: [30, 50, 65, 80],
+            obf: [20, 40, 55, 70]
+        }
+    };
+
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.backgroundColor = 'var(--light)';
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.backgroundColor = 'white';
+        });
+    });
+
+    olympiadCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.backgroundColor = 'var(--light)';
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.backgroundColor = 'white';
+        });
+    });
+
+    modeToggle.addEventListener('click', () => {
+        isStudyPlanMode = !isStudyPlanMode;
+        modeToggle.textContent = isStudyPlanMode ? 'Plano de Estudos' : 'Banco de Dados';
+        modeToggle.classList.toggle('active');
+        searchBar.placeholder = isStudyPlanMode ? 'Digite seus objetivos de estudo...' : 'Pesquisar...';
+    });
+
+    aiToggle.addEventListener('click', () => {
+        isGPT4Mode = !isGPT4Mode;
+        aiToggle.textContent = isGPT4Mode ? 'GPT-4' : 'EduMe.AI';
+        aiToggle.classList.toggle('active');
+    });
+
+    function addMessage(message, isUser = false) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `chat-message ${isUser ? 'user-message' : 'ai-message'}`;
+        messageDiv.textContent = message;
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function generateAIResponse(userMessage) {
+        const message = userMessage.toLowerCase();
+        
+        // Context-aware responses based on keywords
+        if (message.includes('meta') || message.includes('objetivo')) {
+            return "Analisando sua meta de ingressar na UnB, vejo que você já completou 3 marcos importantes. Vamos focar em estratégias para a 'Ação 2' que está em andamento? Posso te ajudar com um plano personalizado.";
+        }
+        
+        if (message.includes('olimpíada') || message.includes('obmep') || message.includes('oba') || message.includes('obf')) {
+            return "Baseado no seu progresso atual nas olimpíadas (OBMEP 60%, OBA 45%, OBF 30%), sugiro focarmos em fortalecer sua preparação em física, que está com menor progresso. Posso te mostrar alguns exercícios específicos ou criar um cronograma de estudos.";
+        }
+        
+        if (message.includes('ajuda') || message.includes('estudar') || message.includes('como')) {
+            return "Posso te ajudar de várias formas:\n1. Criar um plano de estudos personalizado\n2. Recomendar materiais específicos\n3. Ajudar com dúvidas em exercícios\n4. Monitorar seu progresso\nO que você prefere?";
+        }
+        
+        if (message.includes('tempo') || message.includes('horário') || message.includes('cronograma')) {
+            return "Analisando seus dados de estudo, vejo que você tem melhor desempenho nas manhãs. Sugiro concentrarmos as atividades mais desafiadoras nesse período. Quer que eu elabore um cronograma otimizado?";
+        }
+        
+        // Motivational responses
+        if (message.includes('difícil') || message.includes('cansado') || message.includes('desistir')) {
+            return "Entendo que possa parecer desafiador, mas olhe seu progresso! Você já conquistou 3 marcos importantes em sua jornada. Vamos quebrar os próximos desafios em partes menores e mais gerenciáveis?";
+        }
+        
+        // Default responses with more context
+        const defaultResponses = [
+            "Com base no seu histórico de estudos, posso sugerir alguns recursos específicos para acelerar seu progresso. Gostaria de ver?",
+            "Identifiquei alguns padrões interessantes no seu desempenho. Vamos trabalhar em uma estratégia personalizada?",
+            "Seu progresso está consistente, mas podemos otimizar ainda mais. Que tal analisarmos juntos as áreas com maior potencial de melhoria?",
+            "Tenho algumas recomendações baseadas nos seus objetivos para a UnB. Quer conhecer?",
+            "Posso criar um plano adaptativo que se ajusta ao seu ritmo de aprendizado. Interesse?"
+        ];
+        
+        return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+    }
+
+    sendMessage.addEventListener('click', () => {
+        const message = chatInput.value.trim();
+        if (message) {
+            addMessage(message, true);
+            chatInput.value = '';
+            
+            setTimeout(() => {
+                const aiResponse = generateAIResponse(message);
+                addMessage(aiResponse);
+            }, 1000);
+        }
+    });
+
+    chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            sendMessage.click();
+        }
+    });
+
+    // Progress Chart
+    const ctx = document.getElementById('progressChart').getContext('2d');
+    const progressChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: timeData.day.labels,
+            datasets: [{
+                label: 'OBMEP',
+                data: timeData.day.obmep,
+                borderColor: '#20B2AA',
+                tension: 0.4,
+                fill: false
+            },
+            {
+                label: 'OBA',
+                data: timeData.day.oba,
+                borderColor: '#48D1CC',
+                tension: 0.4,
+                fill: false
+            },
+            {
+                label: 'OBF',
+                data: timeData.day.obf,
+                borderColor: '#2F4F4F',
+                tension: 0.4,
+                fill: false
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: {
+                        callback: function(value) {
+                            return value + '%';
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Progresso'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Horas de Estudo'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'top',
+                }
+            }
+        }
+    });
+
+    timeToggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+            const period = toggle.dataset.period;
+
+            timeToggles.forEach(t => t.classList.remove('active'));
+            toggle.classList.add('active');
+
+            progressChart.data.labels = timeData[period].labels;
+            progressChart.data.datasets[0].data = timeData[period].obmep;
+            progressChart.data.datasets[1].data = timeData[period].oba;
+            progressChart.data.datasets[2].data = timeData[period].obf;
+
+            progressChart.options.scales.x.title.text = period === 'day' ? 'Horas de Estudo' : 
+                                                          period === 'week' ? 'Dias da Semana' : 
+                                                          'Semanas do Mês';
+
+            progressChart.update();
+        });
+    });
+});
+</script>
+
+</body>
+</html>
